@@ -1,4 +1,6 @@
-FROM pan93412/musetalk:1.5-weights AS weights
+# syntax=docker/dockerfile:1
+
+FROM pan93412/musetalk:1.5-base AS weights
 WORKDIR /app
 
 COPY musetalk-git/download_weights.sh .

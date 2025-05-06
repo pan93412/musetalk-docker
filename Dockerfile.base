@@ -1,19 +1,26 @@
+# syntax=docker/dockerfile:1
+
 FROM wallies/python-cuda:3.10-cuda11.7-runtime AS base
 WORKDIR /app
 
-RUN apt update \
-    && apt install -y \
-        git \
-        ffmpeg \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip install --upgrade pip
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update \
+    && apt-get --no-install-recommends install -y \
+      "build-essential=12.8ubuntu1.1" \
+      "ffmpeg=7:4.2.7-0ubuntu0.1"
 
 COPY ./musetalk-git/requirements.txt .
-RUN pip install -r requirements.txt \
-        && pip install --no-cache-dir -U openmim \
-        && mim install mmengine \
-        && mim install "mmcv==2.0.1" \
-        && mim install "mmdet==3.1.0" \
-        && mim install "mmpose==1.1.0" \
-        && rm -rf /root/.cache
+
+# use cache for pip
+# hadolint ignore=DL3042
+RUN \
+  --mount=type=cache,target=/root/.cache/pip \
+  pip install -r requirements.txt \
+    && pip install -U openmim==0.3.9 \
+    && mim install "mmengine==0.10.7" \
+    && mim install "mmcv==2.0.1" \
+    && mim install "mmdet==3.1.0" \
+    && mim install "mmpose==1.1.0" \
+    && rm -rf /root/.cache
