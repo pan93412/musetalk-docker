@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM wallies/python-cuda:3.10-cuda11.7-runtime AS base
+FROM nvidia/cuda:11.7.1-runtime-ubuntu22.04 AS base
 
 LABEL org.opencontainers.image.title="MuseTalk 1.5 Base Environment"
 LABEL org.opencontainers.image.description="The base of the MuseTalk Docker image."
@@ -11,13 +11,16 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 WORKDIR /app
 
+# Install dependencies
 RUN \
   --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get update \
     && apt-get --no-install-recommends install -y \
-      "build-essential=12.8ubuntu1.1" \
-      "ffmpeg=7:4.2.7-0ubuntu0.1"
+      "build-essential=12.9ubuntu3" \
+      "ffmpeg=7:4.4.2-0ubuntu0.22.04.1" \
+      "python3.10=3.10.12-1~22.04.9" \
+      "python3-pip=22.0.2+dfsg-1ubuntu0.5"
 
 COPY ./musetalk-git/requirements.txt .
 
