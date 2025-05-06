@@ -1,0 +1,3 @@
+[submodule "musetalk-git"]
+	path = musetalk-git
+	url = https://github.com/TMElyralab/MuseTalk

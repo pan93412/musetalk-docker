@@ -1,0 +1,19 @@
+FROM wallies/python-cuda:3.10-cuda11.7-runtime AS base
+WORKDIR /app
+
+RUN apt update \
+    && apt install -y \
+        git \
+        ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip
+
+COPY ./musetalk-git/requirements.txt .
+RUN pip install -r requirements.txt \
+        && pip install --no-cache-dir -U openmim \
+        && mim install mmengine \
+        && mim install "mmcv==2.0.1" \
+        && mim install "mmdet==3.1.0" \
+        && mim install "mmpose==1.1.0" \
+        && rm -rf /root/.cache
