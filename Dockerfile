@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
 
-FROM pan93412/musetalk:1.5-base AS weights
+# make 
+FROM python:3.10-slim-bullseye AS weights
 WORKDIR /app
 
 COPY musetalk-git/download_weights.sh .
