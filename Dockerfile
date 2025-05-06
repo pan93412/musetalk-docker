@@ -1,8 +1,12 @@
 # syntax=docker/dockerfile:1
 
 # make 
-FROM python:3.10-slim-bullseye AS weights
+FROM python:3.10-slim-bookworm AS weights
 WORKDIR /app
+
+RUN apt-get update \
+        && apt-get install --no-install-recommends -y "curl==7.88.1-10+deb12u12" \
+        && rm -rf /var/lib/apt/lists/*
 
 COPY musetalk-git/download_weights.sh .
 RUN bash ./download_weights.sh
