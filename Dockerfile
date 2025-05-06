@@ -18,6 +18,6 @@ LABEL org.opencontainers.image.licenses="MIT"
 WORKDIR /app
 
 COPY /musetalk-git .
-COPY --from=weights /app/models ./models
+COPY --link --from=weights /app/models /app/models
 
-RUN ["python3", "app.py", "--ip", "0.0.0.0", "--port", "7860"]
+CMD ["python3", "app.py", "--ip", "0.0.0.0", "--port", "7860"]
