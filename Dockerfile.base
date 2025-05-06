@@ -1,6 +1,14 @@
 # syntax=docker/dockerfile:1
 
 FROM wallies/python-cuda:3.10-cuda11.7-runtime AS base
+
+LABEL org.opencontainers.image.title="MuseTalk 1.5 Base Environment"
+LABEL org.opencontainers.image.description="The base of the MuseTalk Docker image."
+LABEL org.opencontainers.image.url="https://github.com/pan93412/musetalk-docker"
+LABEL org.opencontainers.image.documentation="https://github.com/pan93412/musetalk-docker"
+LABEL org.opencontainers.image.source="https://github.com/pan93412/musetalk-docker"
+LABEL org.opencontainers.image.licenses="MIT"
+
 WORKDIR /app
 
 RUN \
