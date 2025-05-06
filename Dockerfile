@@ -20,4 +20,4 @@ WORKDIR /app
 COPY /musetalk-git .
 COPY --from=weights /app/models ./models
 
-RUN ["python3", "app.py"]
+RUN ["python3", "app.py", "--ip", "0.0.0.0", "--port", "7860"]
