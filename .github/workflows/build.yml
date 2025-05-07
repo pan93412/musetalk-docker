@@ -8,6 +8,13 @@ permissions:
   contents: write
 
 jobs:
+  docker:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
   build:
     runs-on: ubuntu-24.04
     steps:
@@ -55,13 +62,13 @@ jobs:
       - name: Build base image
         uses: docker/build-push-action@v6
         with:
-          tags: pan93412/musetalk:1.5-base
+          tags: localhost:5000/pan93412/musetalk:1.5-base
           file: Dockerfile.base
           platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          load: true
+          push: true
 
       - name: Build Gradle image
         uses: docker/build-push-action@v6
@@ -72,4 +79,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          load: true
+          build-contexts: |
+            pan93412/musetalk=docker-image://localhost:5000/pan93412/musetalk
