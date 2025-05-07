@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -25,5 +28,22 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Run build.sh
-        run: bash ./build.sh
+      - name: Build base image
+        uses: docker/build-push-action@v6
+        with:
+          tags: pan93412/musetalk:1.5-base
+          file: Dockerfile.base
+          platforms: linux/amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Gradle image
+        uses: docker/build-push-action@v6
+        with:
+          tags: pan93412/musetalk:1.5-gradle
+          file: Dockerfile
+          platforms: linux/amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          github-token: ${{ secrets.GITHUB_TOKEN }}
