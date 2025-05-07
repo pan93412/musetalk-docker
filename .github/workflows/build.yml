@@ -94,6 +94,7 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          push: true
 
       - name: Generate artifact attestation for Gradio image
         uses: actions/attest-build-provenance@v2
