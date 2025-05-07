@@ -97,7 +97,7 @@ jobs:
           cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
           build-contexts: |
-            pan93412/musetalk-docker=${{ env.IMAGE_NAME }}
+            pan93412/musetalk-docker=docker-image://${{ env.IMAGE_NAME }}
 
       - name: Generate artifact attestation for Gradio image
         uses: actions/attest-build-provenance@v2
