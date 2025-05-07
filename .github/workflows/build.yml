@@ -7,8 +7,10 @@ on:
       - master
 
 permissions:
+  id-token: write
   contents: write
   packages: write
+  attestations: write
 
 env:
   IMAGE_NAME: ghcr.io/pan93412/musetalk-docker
