@@ -93,8 +93,6 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:1.5-gradio
           file: Dockerfile
           platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate artifact attestation for Gradio image
