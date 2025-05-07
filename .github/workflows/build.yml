@@ -61,6 +61,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          load: true
 
       - name: Build Gradle image
         uses: docker/build-push-action@v6
@@ -71,3 +72,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          load: true
