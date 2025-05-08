@@ -3,7 +3,7 @@
 set -eu
 
 echo "Building base image..."
-docker build -t ghcr.io/pan93412/musetalk-docker:1.5-base -f Dockerfile.base .
+docker buildx build --platform linux/amd64 -t pan93412/musetalk-docker:1.5-base -f Dockerfile.base .
 
 echo "Building application image..."
-docker build -t ghcr.io/pan93412/musetalk-docker:1.5-gradio -f Dockerfile .
+docker buildx build --platform linux/amd64 -t pan93412/musetalk-docker:1.5-gradio -f Dockerfile .
