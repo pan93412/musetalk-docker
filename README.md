@@ -22,10 +22,6 @@ docker push pan93412/musetalk-docker:1.5-gradio
 You should first install the [NVIDIA Open Driver](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/index.html#the-recommended-way-ubuntu-drivers-tool) and [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository). Ensure that the driver you install supports CUDA version 11.8 or higher.
 
 ```shell
-sudo apt install nvidia-open
-```
-
-```shell
 docker run --gpus all -p 7860:7860 pan93412/musetalk-docker:1.5-gradio
 ```
 
